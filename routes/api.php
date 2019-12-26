@@ -17,6 +17,8 @@ use Illuminate\Http\Request;
 //     return $request->user();
 // });
 
+Route::get('/applications', 'ApplicationController@index')->middleware('auth:api');
+
 Route::group([
     'prefix' => 'auth'
 ], function () {

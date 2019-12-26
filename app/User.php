@@ -40,4 +40,20 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * The applications that belong to the user
+     */
+    public function applications()
+    {
+        return $this->belongsToMany('App\Application', 'user_x_application', 'user_id', 'application_id')->withTimestamps();
+    }
+
+    /**
+     * The list of approved applicaitons
+     */
+    public function approvedApplications()
+    {
+        return $this->applications()->wherePivot('access_granted', true);
+    }
 }
