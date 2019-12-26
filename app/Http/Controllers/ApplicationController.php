@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use JWTAuth;
-// use App\Application;
 use App\User;
+use App\Http\Response\ApiResponse;
+use App\Utilities\DebugUtil;
 
 class ApplicationController extends Controller
 {
@@ -22,10 +22,11 @@ class ApplicationController extends Controller
         $result = $user->approvedApplications;
 
 		$response = [
-            'result'	=> $result,
+            'data'	=> $result,
 			// 'webtiles' => 2
 		];
-		return response()->json($response, 200);
+
+        return ApiResponse::success($response);
     }
 
     /**
