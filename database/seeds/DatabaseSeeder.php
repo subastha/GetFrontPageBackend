@@ -15,5 +15,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ApplicationsTableSeeder::class);
         $this->call(DomainsTableSeeder::class);
         $this->call(BookmarksTableSeeder::class);
+        $this->call(UserXApplicationTableSeeder::class);
     }
 }
