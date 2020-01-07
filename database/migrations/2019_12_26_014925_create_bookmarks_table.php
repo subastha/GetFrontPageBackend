@@ -19,6 +19,7 @@ class CreateBookmarksTable extends Migration
             $table->string('name');
             $table->longText('url');
             $table->bigInteger('domain_id');
+            $table->bigInteger('visits')->unsigned();
             $table->longText('image_url')->nullable();
             
             $table->timestamps();
