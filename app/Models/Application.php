@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,7 +12,7 @@ class Application extends Model
      * @var array
      */
     protected $hidden = [
-        'pivot', 'created_at', 'updated_at'
+        'pivot', 'created_at', 'updated_at', 'deleted_at'
     ];
 
     /**
@@ -20,6 +20,6 @@ class Application extends Model
      */
     public function users()
     {
-        return $this->belongsToMany('App\User', 'user_x_application', 'application_id', 'user_id')->withTimestamps();
+        return $this->belongsToMany('App\Models\User', 'user_x_application', 'application_id', 'user_id')->withTimestamps();
     }
 }

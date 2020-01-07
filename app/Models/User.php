@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -46,7 +46,7 @@ class User extends Authenticatable
      */
     public function applications()
     {
-        return $this->belongsToMany('App\Application', 'user_x_application', 'user_id', 'application_id')->withTimestamps();
+        return $this->belongsToMany('App\Models\Application', 'user_x_application', 'user_id', 'application_id')->withTimestamps();
     }
 
     /**
