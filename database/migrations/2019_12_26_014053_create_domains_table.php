@@ -18,7 +18,7 @@ class CreateDomainsTable extends Migration
             $table->string('domain')->unique();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
-            $table->timestamp('deleted_at')->useCurrent();
+            $table->softDeletes();
         });
     }
 
