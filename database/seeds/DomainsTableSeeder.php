@@ -13,14 +13,19 @@ class DomainsTableSeeder extends Seeder
     public function run()
     {
         DB::table('domains')->insert([
-            'domain' => 'www.reddit.com',
+            'domain' => 'reddit.com',
             'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-            'deleted_at' => Carbon::now()
+            'updated_at' => Carbon::now()
         ]);
 
         DB::table('domains')->insert([
-            'domain' => 'www.youtube.com',
+            'domain' => 'youtube.com',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]);
+
+        DB::table('domains')->insert([
+            'domain' => 'whatever.com',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
             'deleted_at' => Carbon::now()
