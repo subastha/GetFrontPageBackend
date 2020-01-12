@@ -20,8 +20,7 @@ class BookmarksTableSeeder extends Seeder
             'visits' => 1,
             'image_url' => null,
             'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-            'deleted_at' => Carbon::now()
+            'updated_at' => Carbon::now()
         ]);
 
         DB::table('bookmarks')->insert([
@@ -29,6 +28,17 @@ class BookmarksTableSeeder extends Seeder
             'name' => 'youtube',
             'url' => 'https://www.youtube.com',
             'domain_id' => 2,
+            'visits' => 1,
+            'image_url' => null,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]);
+
+        DB::table('bookmarks')->insert([
+            'user_id' => 1,
+            'name' => 'whatever',
+            'url' => 'https://www.whatever.com',
+            'domain_id' => 3,
             'visits' => 1,
             'image_url' => null,
             'created_at' => Carbon::now(),

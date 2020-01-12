@@ -18,7 +18,7 @@ class CreateBookmarksTable extends Migration
             $table->bigInteger('user_id')->unsigned();
             $table->string('name');
             $table->longText('url');
-            $table->bigInteger('domain_id');
+            $table->bigInteger('domain_id')->unsigned();
             $table->bigInteger('visits')->unsigned();
             $table->longText('image_url')->nullable();
 
@@ -26,6 +26,7 @@ class CreateBookmarksTable extends Migration
             $table->timestamp('updated_at')->useCurrent();
             $table->softDeletes();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('domain_id')->references('id')->on('domains')->onDelete('cascade');
         });
     }
 

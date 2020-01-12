@@ -43,3 +43,11 @@ Route::group([
     Route::get('find/{token}', 'PasswordResetController@find');
     Route::post('reset', 'PasswordResetController@reset');
 });
+
+Route::group([    
+    'middleware' => 'auth:api',    
+    'prefix' => 'app'
+], function () {    
+    Route::get('bookmarks', 'BookmarkController@index');
+    Route::post('bookmarks', 'BookmarkController@create');
+});

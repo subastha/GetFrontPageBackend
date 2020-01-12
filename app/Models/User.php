@@ -29,7 +29,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token', 'activation_token'
+        'password', 'remember_token', 'activation_token', 'email_verified_at',
+        'bookmarks'
     ];
 
     /**
@@ -55,5 +56,13 @@ class User extends Authenticatable
     public function approvedApplications()
     {
         return $this->applications()->wherePivot('access_granted', true);
+    }
+
+    /**
+     * return user's bookmarks
+     */
+    public function bookmarks()
+    {
+        return $this->hasMany('App\Models\Bookmark');
     }
 }
