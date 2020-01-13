@@ -31,16 +31,16 @@ class BookmarkController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Create a new resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request)
     {
         $request->validate([
-            'name' => 'required|string',
+            'name' => 'required|string|max:255',
             'url' => 'required|string',
-            'image_url' => 'string'
+            'image_url' => 'nullable|string'
         ]);
         $user = $request->user();
 
@@ -58,41 +58,8 @@ class BookmarkController extends Controller
         $bookmark->save();
 
         return ApiResponse::success([
-            'bookmark' => $bookmark
+            'data' => $bookmark
         ]);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**
@@ -102,20 +69,52 @@ class BookmarkController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'url' => 'required|string',
+            'image_url' => 'nullable|string'
+        ]);
+
+        $user = $request->user();
+
+        $bookmark = Bookmark::where('user_id', '=', $user->id)
+            ->findOrFail($id);
+
+        if($request->url !== $bookmark->url){
+            $domain = $this->findOrCreate($request->url);
+            $bookmark->domain_id = $domain->id;
+        }
+
+        $bookmark->name = $request->name;
+        $bookmark->url = $request->url;
+        $bookmark->image_url = $request->image_url;
+        $bookmark->save();
+
+        return ApiResponse::success([
+            'data' => $bookmark
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, int $id)
     {
-        //
+        $user = $request->user();
+        
+        $bookmark = Bookmark::where('user_id', '=', $user->id)
+            ->findOrFail($id)
+            ->delete();
+
+        return ApiResponse::success([
+            'message' => 'Bookmark deleted'
+        ]);
     }
 
     /**

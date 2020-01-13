@@ -50,4 +50,6 @@ Route::group([
 ], function () {    
     Route::get('bookmarks', 'BookmarkController@index');
     Route::post('bookmarks', 'BookmarkController@create');
+    Route::put('bookmarks/{id}', 'BookmarkController@update');
+    Route::delete('bookmarks/{id}', 'BookmarkController@destroy');
 });
