@@ -8,7 +8,7 @@ class ApiResponse {
     private $data;
     private $statusCode;
 
-    function __construct($data, string $responseType = 'json'){
+    function __construct($data = null, string $responseType = 'json'){
         $this->data = $data;
         $this->responseType = $responseType;
     }
@@ -29,6 +29,9 @@ class ApiResponse {
     }
 
     public function response(){
+        if($this->data === null){
+            return response()->noContent();
+        }
         switch($this->responseType){
             case 'json':
             default:

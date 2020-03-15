@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel-Skeleton'),
+    'name' => env('APP_NAME', 'Getfrontpage'),
 
     /*
     |--------------------------------------------------------------------------
@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://sk.test'),
+    'url' => env('APP_URL', 'http://getfrontpage.test'),
 
     'asset_url' => env('ASSET_URL', null),
 
@@ -174,7 +174,6 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
     ],
 
     /*

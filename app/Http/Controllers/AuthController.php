@@ -78,16 +78,18 @@ class AuthController extends Controller
                 'message' => 'Unauthorized'
             ], 401);
         $user = $request->user();
-        $tokenResult = $user->createToken('Personal Access Token');
-        $token = $tokenResult->token;
-        if ($request->remember_me)
+        $token_result = $user->createToken('Personal Access Token');
+        $token = $token_result->token;
+        if ($request->remember_me) {
             $token->expires_at = Carbon::now()->addWeeks(1);
+        }
         $token->save();
         return response()->json([
-            'access_token' => $tokenResult->accessToken,
+            'username' => $user->name,
+            'access_token' => $token_result->accessToken,
             'token_type' => 'Bearer',
             'expires_at' => Carbon::parse(
-                $tokenResult->token->expires_at
+                $token_result->token->expires_at
             )->toDateTimeString()
         ]);
     }

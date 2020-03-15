@@ -19,12 +19,16 @@ use Illuminate\Http\Request;
 
 Route::get('/applications', 'ApplicationController@index')->middleware('auth:api');
 
+// Route::post('/auth/login', 'AuthController@login')->middleware('auth:api');
+
+
 Route::group([
     'prefix' => 'auth'
 ], function () {
-    Route::post('login', 'AuthController@login');
+    // Route::post('login', 'AuthController@login');
     Route::post('signup', 'AuthController@signup');
     Route::get('signup/activate/{token}', 'AuthController@signupActivate');
+    Route::post('login', 'AuthController@login');
 
     Route::group([
       'middleware' => 'auth:api'
@@ -51,5 +55,6 @@ Route::group([
     Route::get('bookmarks', 'BookmarkController@index');
     Route::post('bookmarks', 'BookmarkController@create');
     Route::put('bookmarks/{id}', 'BookmarkController@update');
+    Route::patch('bookmarks/inc/{id}', 'BookmarkController@increment');
     Route::delete('bookmarks/{id}', 'BookmarkController@destroy');
 });

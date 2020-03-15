@@ -97,6 +97,26 @@ class BookmarkController extends Controller
         ]);
     }
 
+    /**t
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function increment(Request $request, int $id)
+    {
+        $user = $request->user();
+
+        $bookmark = Bookmark::where('user_id', '=', $user->id)
+            ->findOrFail($id);
+
+        $bookmark->visits += 1;
+        $bookmark->save();
+
+        return ApiResponse::success(null);
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -131,7 +151,7 @@ class BookmarkController extends Controller
                 'domain' => $domainName
             ]);
         }
-        throw new Exception('Invalid url. Cannot extract domain name.');
+        throw new \Exception('Invalid url. Cannot extract domain name.');
     }
 
     /**
@@ -141,6 +161,9 @@ class BookmarkController extends Controller
      * @return string|bool
      */
     private function getDomain(string $url){
+        if(substr($url, 0, 4) !== 'http'){
+            $url = 'https://' . $url;
+        }
         $pieces = parse_url($url);
         $domain = isset($pieces['host']) ? $pieces['host'] : '';
         if(preg_match('/(?P<domain>[a-z0-9][a-z0-9\-]{1,63}\.[a-z\.]{2,6})$/i', $domain, $regs)){
